@@ -52,11 +52,11 @@ public class SkillStatusUI : MonoBehaviour
 
     private void OnEnable()
     {
-        currentTab = 1;
-        skillTabButton.sprite = pressedTabButton;
-        statusTabButton.sprite = releasedTabButton;
-        skillUI.SetActive(true);
-        statusUI.SetActive(false);
+        currentTab = 2;
+        skillTabButton.sprite = releasedTabButton;
+        statusTabButton.sprite = pressedTabButton;
+        skillUI.SetActive(false);
+        statusUI.SetActive(true);
     }
 
     private void OnDisable()
