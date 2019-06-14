@@ -47,4 +47,6 @@ public class PlayerController : MonoBehaviour
         rigid2.velocity = Vector2.zero;
         rigid2.AddForce(Vector2.up*10f, ForceMode2D.Impulse);
     }
+
+    //검 회전각도 : 25, -115
 }
