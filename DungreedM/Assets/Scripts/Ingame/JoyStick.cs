@@ -12,6 +12,8 @@ public class JoyStick : MonoBehaviour
     public Transform stick;         // 조이스틱.
     public PlayerController playerCon;
     public bool isPlayerCon;
+    public GameObject canvas;
+    public GameObject weapon;
 
     // 비공개
     
@@ -19,6 +21,7 @@ public class JoyStick : MonoBehaviour
     private Vector3 stickFirstPos;  // 조이스틱의 처음 위치.
     private Vector3 joyVec;         // 조이스틱의 벡터(방향)
     private float radius;           // 조이스틱 배경의 반 지름.
+    private bool isEdge;
 
     void Start()
     {
@@ -26,23 +29,36 @@ public class JoyStick : MonoBehaviour
         stickFirstPos = transform.position;
 
         // 캔버스 크기에대한 반지름 조절.
-        float can = transform.parent.GetComponent<RectTransform>().localScale.x;
+        float can = canvas.GetComponent<RectTransform>().localScale.x;
         radius *= can;
     }
 
     void FixedUpdate()
     {
+        //조이스틱과 중심의 각도
+        float angle = GetDegree(new Vector2(transform.position.x, transform.position.y), new Vector2(stick.position.x, stick.position.y));
+
+        //플레이어 조이콘 혹은 스킬 조이콘인지
         if (isPlayerCon)
         {
             //플레이어 x좌표 움직이기
             joyPos = stick.transform.position;
             playerCon.MoveX((joyPos.x - transform.position.x) * 0.001f);
 
-            //조이스틱과 중심의 각도구하기
-            float angle = GetDegree(new Vector2(transform.position.x, transform.position.y), new Vector2(stick.position.x, stick.position.y));
             //점프하기
             if (playerFoot.GetIsGround() && (angle > 60 && angle < 120))
                 playerCon.Jump();
+        }
+        else
+        {
+            if (isEdge)
+            {
+
+            }
+            else
+            {
+                weapon.transform.rotation = Quaternion.Euler(new Vector3(0, weapon.transform.rotation.y, angle + 25));
+            }
         }
     }
 
@@ -53,10 +69,15 @@ public class JoyStick : MonoBehaviour
         joyPos = data.position;
         joyVec = (joyPos - stickFirstPos).normalized;
         float dis = Vector3.Distance(joyPos, stickFirstPos);
-        if (dis < radius)
+        if (dis < radius){
+            isEdge = false;
             stick.position = stickFirstPos + joyVec * dis;
+        }
         else
+        {
+            isEdge = true;
             stick.position = stickFirstPos + joyVec * radius;
+        }  
     }
 
     // 드래그 끝.
