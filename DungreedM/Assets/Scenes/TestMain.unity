@@ -1931,7 +1931,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac112cc7e95b86b4a8d098be3c94e0f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraMain: {fileID: 0}
+  cameraMain: {fileID: 534669904}
   player: {fileID: 616595493}
   foot: {fileID: 1885144100}
   skillRange1: {fileID: 983703863}
