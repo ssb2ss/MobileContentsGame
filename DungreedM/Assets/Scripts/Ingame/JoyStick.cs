@@ -16,7 +16,6 @@ public class JoyStick : MonoBehaviour
     public GameObject weapon;
 
     // 비공개
-    
     private Vector3 joyPos;
     private Vector3 stickFirstPos;  // 조이스틱의 처음 위치.
     private Vector3 joyVec;         // 조이스틱의 벡터(방향)
@@ -51,14 +50,11 @@ public class JoyStick : MonoBehaviour
         }
         else
         {
+            //조이스틱의 끝에 닿는다면
             if (isEdge)
-            {
-
-            }
+                playerCon.OnAttack(true, angle);
             else
-            {
-                weapon.transform.rotation = Quaternion.Euler(new Vector3(0, weapon.transform.rotation.y, angle + 25));
-            }
+                playerCon.OnAttack(false, angle);
         }
     }
 
@@ -69,6 +65,8 @@ public class JoyStick : MonoBehaviour
         joyPos = data.position;
         joyVec = (joyPos - stickFirstPos).normalized;
         float dis = Vector3.Distance(joyPos, stickFirstPos);
+
+
         if (dis < radius){
             isEdge = false;
             stick.position = stickFirstPos + joyVec * dis;
@@ -85,6 +83,7 @@ public class JoyStick : MonoBehaviour
     {
         stick.position = stickFirstPos; // 스틱을 원래의 위치로.
         joyVec = Vector3.zero;          // 방향을 0으로.
+        isEdge = false;
     }
 
     private float GetDegree(Vector2 from, Vector2 to)

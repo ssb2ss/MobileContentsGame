@@ -139,14 +139,14 @@ public class SkillManager : MonoBehaviour
     IEnumerator Dash(Vector2 to)
     {
         Vector2 from = new Vector2(player.transform.position.x, player.transform.position.y);
-        for(int i = 1; i < 15; i++)
+        for(int i = 1; i < 25; i++)
         {
-            player.transform.position = Vector2.Lerp(from, to, i * 0.1f);
-            yield return new WaitForEndOfFrame();
+            player.transform.position = Vector2.Lerp(from, to, i * 0.05f);
+            yield return new WaitForSeconds(0.01f);
             if (foot.GetIsGround()&&i>3)
                 yield break;
         }
-        yield return null;
+        yield return 0;
     }
 
 
