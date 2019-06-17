@@ -10,7 +10,7 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody2D rigid2;
     //방향
-    private Quaternion right, left;
+    private Quaternion right, left, effectRot;
     private bool isAttackCool;
     private bool isAttacked;
     
@@ -33,7 +33,15 @@ public class PlayerController : MonoBehaviour
     //x좌표 이동
     public void MoveX(float impet) //impetus --> 운동량
     {
-        transform.Translate(new Vector3(impet, 0, 0));
+        if(transform.rotation == right)
+        {
+            transform.Translate(new Vector3(impet, 0, 0));
+        }
+        else
+        {
+            transform.Translate(new Vector3(-impet, 0, 0));
+        }
+        
     }
     //점프
     public void Jump()
@@ -51,6 +59,9 @@ public class PlayerController : MonoBehaviour
         {
             if (!isAttackCool)
             {
+                attackEffect.transform.rotation = Quaternion.Euler(new Vector3(0, weapon.transform.rotation.y, angle - 42));
+                attackEffect.transform.position = transform.position;
+                attackEffect.SetActive(true);
                 StartCoroutine(CheckAttackCoolTime(1f));
                 if (isAttacked)
                     isAttacked = false;
@@ -59,22 +70,31 @@ public class PlayerController : MonoBehaviour
             }
         }
         //플레이어 방향
-        if (angle < 90 && angle > -90)
-            transform.rotation = right;
-        else
-            transform.rotation = left;
-        //칼 배치
-        if (isAttacked)
-            weapon.transform.rotation = Quaternion.Euler(new Vector3(0, weapon.transform.rotation.y, angle - 195));
-        else
-            weapon.transform.rotation = Quaternion.Euler(new Vector3(0, weapon.transform.rotation.y, angle + 15));
+        if(angle != 0)
+        {
+            if (angle < 90 && angle > -90)
+                transform.rotation = right;
+            else
+                transform.rotation = left;
+            //칼 배치
+            if (isAttacked)
+            {
+                weapon.transform.rotation = Quaternion.Euler(new Vector3(0, weapon.transform.rotation.y, angle - 195));
+            }
+            else
+            {
+                weapon.transform.rotation = Quaternion.Euler(new Vector3(0, weapon.transform.rotation.y, angle + 15));
+            }
+        }  
     }
 
     IEnumerator CheckAttackCoolTime(float cooltime)
     {
         Debug.Log("Coroutine");
         isAttackCool = true;
-        yield return new WaitForSeconds(cooltime);
+        yield return new WaitForSeconds(0.4f);
+        attackEffect.SetActive(false);
+        yield return new WaitForSeconds(cooltime - 0.4f);
         isAttackCool = false;
         yield return 0;
     }

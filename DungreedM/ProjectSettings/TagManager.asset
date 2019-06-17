@@ -5,9 +5,7 @@ TagManager:
   serializedVersion: 2
   tags:
   - Ground
-  - 1
-  - 2
-  - 3
+  - Common_Attack
   layers:
   - Default
   - TransparentFX
