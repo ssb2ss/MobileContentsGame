@@ -21,6 +21,7 @@ public class JoyStick : MonoBehaviour
     private Vector3 joyVec;         // 조이스틱의 벡터(방향)
     private float radius;           // 조이스틱 배경의 반 지름.
     private bool isEdge;
+    private int s_width = Screen.width;
 
     void Start()
     {
@@ -42,7 +43,7 @@ public class JoyStick : MonoBehaviour
         {
             //플레이어 x좌표 움직이기
             joyPos = stick.transform.position;
-            playerCon.MoveX((joyPos.x - transform.position.x) * 0.001f);
+            playerCon.MoveX((joyPos.x - transform.position.x)/(float)s_width * 2f);
 
             //점프하기
             if (playerFoot.GetIsGround() && (angle > 60 && angle < 120))
