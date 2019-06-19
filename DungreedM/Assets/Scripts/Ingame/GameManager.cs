@@ -5,6 +5,8 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     public GameObject Sky1, Sky2;
+    public static Transform playerTransform;
+    public static PlayerController playerCon;
 
     private int saveCode, playTime, weapon;
     private float soulLevel;
@@ -17,6 +19,12 @@ public class GameManager : MonoBehaviour
      * 스킬 트리 1 2 3 string
      * 
      */
+
+    void Awake()
+    {
+        playerTransform = GameObject.FindWithTag("Player").GetComponent<Transform>();
+        playerCon = GameObject.FindWithTag("Player").GetComponent<PlayerController>();
+    }
 
     private void Start()
     {

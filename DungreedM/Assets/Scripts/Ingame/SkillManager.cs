@@ -7,7 +7,6 @@ using UnityEngine.UI;
 public class SkillManager : MonoBehaviour
 {
     public Camera cameraMain;
-    public GameObject player;
     public PlayerFoot foot;
     public Slider screenCross;
     public GameObject skillRange1, skillRange2;
@@ -23,7 +22,7 @@ public class SkillManager : MonoBehaviour
 
     private void Start()
     {
-        rigid2 = player.GetComponent<Rigidbody2D>();
+        rigid2 = GameObject.FindWithTag("Player").GetComponent<Rigidbody2D>();
         
     }
 
@@ -32,13 +31,13 @@ public class SkillManager : MonoBehaviour
         //스킬 UI가 플레이어 따라가기
         if (skillRange1.activeSelf)
         {
-            Vector3 screenPos = cameraMain.WorldToScreenPoint(player.transform.position);
+            Vector3 screenPos = cameraMain.WorldToScreenPoint(GameManager.playerTransform.position);
             float x = screenPos.x;
             skillRange1.transform.position = new Vector3(x, screenPos.y, skillRange1.transform.position.z);
         }
         else if (skillRange2.activeSelf)
         {
-            Vector3 screenPos = cameraMain.WorldToScreenPoint(player.transform.position);
+            Vector3 screenPos = cameraMain.WorldToScreenPoint(GameManager.playerTransform.position);
             float x = screenPos.x;
             skillRange2.transform.position = new Vector3(x, screenPos.y, skillRange2.transform.position.z);
         }
@@ -158,7 +157,7 @@ public class SkillManager : MonoBehaviour
         //float dis = Vector2.Distance(new Vector2(transform.position.x, transform.position.y), new Vector2(data.position.x, data.position.y));
 
         //플레이어의 스크린 위치
-        Vector3 screenPos = cameraMain.WorldToScreenPoint(player.transform.position);
+        Vector3 screenPos = cameraMain.WorldToScreenPoint(GameManager.playerTransform.position);
         //플레이어 대쉬 방향
         Vector2 vec = (data.position - new Vector2(screenPos.x, screenPos.y)).normalized;
         //터치위치의 월드 위치
@@ -174,10 +173,10 @@ public class SkillManager : MonoBehaviour
 
     IEnumerator Dash(Vector2 to)
     {
-        Vector2 from = new Vector2(player.transform.position.x, player.transform.position.y);
+        Vector2 from = new Vector2(GameManager.playerTransform.position.x, GameManager.playerTransform.position.y);
         for(int i = 1; i < 25; i++)
         {
-            player.transform.position = Vector2.Lerp(from, to, i * 0.05f);
+            GameManager.playerTransform.position = Vector2.Lerp(from, to, i * 0.05f);
             yield return new WaitForSeconds(0.01f);
             if (foot.GetIsGround()&&i>3)
                 yield break;

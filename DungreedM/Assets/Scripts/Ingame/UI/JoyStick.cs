@@ -10,7 +10,6 @@ public class JoyStick : MonoBehaviour
     // 공개
     public PlayerFoot playerFoot;
     public Transform stick;         // 조이스틱.
-    public PlayerController playerCon;
     public bool isPlayerCon;
     public GameObject canvas;
     public GameObject weapon;
@@ -43,19 +42,19 @@ public class JoyStick : MonoBehaviour
         {
             //플레이어 x좌표 움직이기
             joyPos = stick.transform.position;
-            playerCon.MoveX((joyPos.x - transform.position.x)/(float)s_width * 2f);
+            GameManager.playerCon.MoveX((joyPos.x - transform.position.x)/(float)s_width * 2f);
 
             //점프하기
             if (playerFoot.GetIsGround() && (angle > 60 && angle < 120))
-                playerCon.Jump();
+                GameManager.playerCon.Jump();
         }
         else
         {
             //조이스틱의 끝에 닿는다면
             if (isEdge)
-                playerCon.OnAttack(true, angle);
+                GameManager.playerCon.OnAttack(true, angle);
             else
-                playerCon.OnAttack(false, angle);
+                GameManager.playerCon.OnAttack(false, angle);
         }
     }
 

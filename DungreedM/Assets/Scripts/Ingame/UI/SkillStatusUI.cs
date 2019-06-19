@@ -5,6 +5,9 @@ using UnityEngine.UI;
 
 public class SkillStatusUI : MonoBehaviour
 {
+    //활성화, 비활성화 용
+    public PlayerHPUI hpUI;
+    public GameObject joystick, relatedSkill, playerInfoUI;
 
     //탭 버튼 스프라이트
     public Sprite pressedTabButton, releasedTabButton;
@@ -57,6 +60,10 @@ public class SkillStatusUI : MonoBehaviour
         statusTabButton.sprite = pressedTabButton;
         skillUI.SetActive(false);
         statusUI.SetActive(true);
+
+        joystick.SetActive(false);
+        relatedSkill.SetActive(false);
+        playerInfoUI.SetActive(false);
     }
 
     private void OnDisable()
@@ -68,9 +75,15 @@ public class SkillStatusUI : MonoBehaviour
         }
     }
 
+    public int[] GetStatus()
+    {
+        return currentStatus;
+    }
+
     public void OnBagClicked()
     {
         gameObject.SetActive(true);
+        Time.timeScale = 0;
     }
 
     //상단 탭 클릭시
@@ -96,6 +109,11 @@ public class SkillStatusUI : MonoBehaviour
     public void OnExitClicked()
     {
         gameObject.SetActive(false);
+
+        joystick.SetActive(true);
+        relatedSkill.SetActive(true);
+        playerInfoUI.SetActive(true);
+        Time.timeScale = 1;
     }
 
     /*
@@ -190,6 +208,9 @@ public class SkillStatusUI : MonoBehaviour
             nowStatusPlus[i] = 0;
         }
         UpdateStatus();
+        //싱글톤에 올리기
+        StatusData.instance.UpdateStatus(currentStatus);
+        hpUI.UpdateStatus();
     }
 
     public void OnStatusCancelClicked()

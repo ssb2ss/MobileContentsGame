@@ -15,6 +15,7 @@ public class PlayerController : MonoBehaviour
     private float posBefore;
     private bool isAttackCool;
     private bool isAttacked;
+    private float hp;
     
 
     void Start()
@@ -28,6 +29,7 @@ public class PlayerController : MonoBehaviour
         isAttackCool = false;
         isAttacked = false;
         posBefore = transform.position.x;
+        hp = 100;
     }
 
     void FixedUpdate()
@@ -41,6 +43,12 @@ public class PlayerController : MonoBehaviour
 
         posBefore = transform.position.x;
     }
+
+    public float getHP()
+    {
+        return hp;
+    }
+
     //x좌표 이동
     public void MoveX(float impet) //impetus --> 운동량
     {
@@ -55,6 +63,12 @@ public class PlayerController : MonoBehaviour
     {
         rigid2.velocity = Vector2.zero;
         rigid2.AddForce(Vector2.up*10f, ForceMode2D.Impulse);
+    }
+
+    //maxHP초기화
+    public void SetHp(int hp_)
+    {
+        hp = hp_;
     }
 
     //검 회전각도 : 25, -115

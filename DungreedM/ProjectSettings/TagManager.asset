@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Ground
   - Common_Attack
+  - enemy_attack
   layers:
   - Default
   - TransparentFX
