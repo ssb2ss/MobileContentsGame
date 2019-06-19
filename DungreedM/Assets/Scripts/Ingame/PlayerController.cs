@@ -5,12 +5,14 @@ using UnityEngine.EventSystems;
 
 public class PlayerController : MonoBehaviour
 {
-    new public Camera camera;
+    public Camera cameraMain;
     public GameObject weapon, attackEffect;
 
     private Rigidbody2D rigid2;
+    private Animator animator;
     //방향
     private Quaternion right, left, effectRot;
+    private float posBefore;
     private bool isAttackCool;
     private bool isAttacked;
     
@@ -18,29 +20,34 @@ public class PlayerController : MonoBehaviour
     void Start()
     {
         rigid2 = GetComponent<Rigidbody2D>();
+        animator = GetComponent<Animator>();
 
         right = Quaternion.Euler(new Vector3(0, 0, 0));
         left = Quaternion.Euler(new Vector3(0, 180, 0));
         
         isAttackCool = false;
         isAttacked = false;
+        posBefore = transform.position.x;
     }
 
     void FixedUpdate()
     {
-        camera.transform.position = new Vector3(transform.position.x, transform.position.y + 3.5f, -10);
+        cameraMain.transform.position = new Vector3(transform.position.x, transform.position.y + 3.5f, -10);
+
+        if (posBefore != transform.position.x)
+            animator.SetBool("isMoving", true);
+        else
+            animator.SetBool("isMoving", false);
+
+        posBefore = transform.position.x;
     }
     //x좌표 이동
     public void MoveX(float impet) //impetus --> 운동량
     {
         if(transform.rotation == right)
-        {
             transform.Translate(new Vector3(impet, 0, 0));
-        }
         else
-        {
             transform.Translate(new Vector3(-impet, 0, 0));
-        }
         
     }
     //점프
@@ -62,7 +69,7 @@ public class PlayerController : MonoBehaviour
                 attackEffect.transform.rotation = Quaternion.Euler(new Vector3(0, weapon.transform.rotation.y, angle - 42));
                 attackEffect.transform.position = transform.position;
                 attackEffect.SetActive(true);
-                StartCoroutine(CheckAttackCoolTime(1f));
+                StartCoroutine(CheckAttackCoolTime(0.6f));
                 if (isAttacked)
                     isAttacked = false;
                 else
@@ -78,19 +85,14 @@ public class PlayerController : MonoBehaviour
                 transform.rotation = left;
             //칼 배치
             if (isAttacked)
-            {
                 weapon.transform.rotation = Quaternion.Euler(new Vector3(0, weapon.transform.rotation.y, angle - 195));
-            }
             else
-            {
                 weapon.transform.rotation = Quaternion.Euler(new Vector3(0, weapon.transform.rotation.y, angle + 15));
-            }
         }  
     }
 
-    IEnumerator CheckAttackCoolTime(float cooltime)
+    IEnumerator CheckAttackCoolTime(float cooltime) //공격 쿨타임
     {
-        Debug.Log("Coroutine");
         isAttackCool = true;
         yield return new WaitForSeconds(0.4f);
         attackEffect.SetActive(false);

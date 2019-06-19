@@ -28,7 +28,7 @@ public class JoyStick : MonoBehaviour
         stickFirstPos = transform.position;
 
         // 캔버스 크기에대한 반지름 조절.
-        float can = canvas.GetComponent<RectTransform>().localScale.x;
+        float can = canvas.GetComponent<RectTransform>().localScale.y;
         radius *= can;
     }
 
