@@ -5112,10 +5112,10 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.015621394, y: -0.014753491}
+  m_Offset: {x: -0.037555292, y: -0.013949096}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -5126,7 +5126,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.29238582, y: 0.32495004}
+  m_Size: {x: 0.25836292, y: 0.25763285}
   m_EdgeRadius: 0
 --- !u!50 &1063199974
 Rigidbody2D:
@@ -5136,19 +5136,19 @@ Rigidbody2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1063199969}
-  m_BodyType: 2
+  m_BodyType: 0
   m_Simulated: 1
   m_UseFullKinematicContacts: 0
   m_UseAutoMass: 0
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0
   m_Material: {fileID: 0}
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!114 &1063199975
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5167,7 +5167,8 @@ MonoBehaviour:
   childEagle2: {fileID: 0}
   childEagle3: {fileID: 0}
   childEagle4: {fileID: 0}
-  hp: 0
+  hp: 20
+  moveSpeed: 1.5
 --- !u!1 &1118838063
 GameObject:
   m_ObjectHideFlags: 0
@@ -6891,6 +6892,7 @@ GameObject:
   - component: {fileID: 1367051067}
   - component: {fileID: 1367051066}
   - component: {fileID: 1367051068}
+  - component: {fileID: 1367051065}
   m_Layer: 0
   m_Name: attack_effect
   m_TagString: Common_Attack
@@ -6898,6 +6900,27 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
+--- !u!68 &1367051065
+EdgeCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1367051064}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  m_EdgeRadius: 0
+  m_Points:
+  - {x: 0.30130064, y: 0.04646083}
+  - {x: 0.3175957, y: 0.15827985}
+  - {x: 0.27234733, y: 0.2616911}
+  - {x: 0.19449185, y: 0.31344855}
+  - {x: 0.085356966, y: 0.2973215}
 --- !u!212 &1367051066
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -10781,16 +10804,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3339860036833140882, guid: ac8be3dcce1cccd4daed191130a03b2b,
-        type: 3}
-      propertyPath: m_Name
-      value: Player
-      objectReference: {fileID: 0}
-    - target: {fileID: 3339860036833140882, guid: ac8be3dcce1cccd4daed191130a03b2b,
-        type: 3}
-      propertyPath: m_TagString
-      value: Player
-      objectReference: {fileID: 0}
     - target: {fileID: 3339860036833140880, guid: ac8be3dcce1cccd4daed191130a03b2b,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -10845,6 +10858,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3339860036833140882, guid: ac8be3dcce1cccd4daed191130a03b2b,
+        type: 3}
+      propertyPath: m_Name
+      value: Player
+      objectReference: {fileID: 0}
+    - target: {fileID: 3339860036833140882, guid: ac8be3dcce1cccd4daed191130a03b2b,
+        type: 3}
+      propertyPath: m_TagString
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 3339860036833140892, guid: ac8be3dcce1cccd4daed191130a03b2b,
         type: 3}
@@ -10906,6 +10929,11 @@ PrefabInstance:
       propertyPath: m_UseAutoMass
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3339860036833140893, guid: ac8be3dcce1cccd4daed191130a03b2b,
+        type: 3}
+      propertyPath: m_Constraints
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 3339860036833140894, guid: ac8be3dcce1cccd4daed191130a03b2b,
         type: 3}
       propertyPath: m_IsTrigger
@@ -10934,6 +10962,11 @@ PrefabInstance:
     - target: {fileID: 3339860036833140881, guid: ac8be3dcce1cccd4daed191130a03b2b,
         type: 3}
       propertyPath: m_SortingOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 6710678448869137448, guid: ac8be3dcce1cccd4daed191130a03b2b,
+        type: 3}
+      propertyPath: m_RootOrder
       value: 3
       objectReference: {fileID: 0}
     m_RemovedComponents: []

@@ -21,6 +21,7 @@ public class StatusData : MonoBehaviour
         statusData = status;
     }
 
+    //index : 0부터 - 체력, 힘, 방어력, 회피율, 크확
     public int[] GetStatus()
     {
         return statusData;
