@@ -44,7 +44,7 @@ public class CustomButton : MonoBehaviour
             }
             else
             {
-                SceneManager.LoadScene("TestMain");
+                SceneManager.LoadScene("CutScene");
             }
         }
     }
