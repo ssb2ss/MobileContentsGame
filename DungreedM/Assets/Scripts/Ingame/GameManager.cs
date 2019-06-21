@@ -8,8 +8,7 @@ public class GameManager : MonoBehaviour
     public static Transform playerTransform;
     public static PlayerController playerCon;
 
-    private int saveCode, playTime, weapon;
-    private float soulLevel;
+    
     
     /*
      * 플레이어번호
@@ -31,21 +30,6 @@ public class GameManager : MonoBehaviour
         //해상도, 나둬도 꺼지지 않기
         //Screen.SetResolution(1920, 1080, true);
         Screen.sleepTimeout = SleepTimeout.NeverSleep;
-
-        /*
-         PlayerPrefs 초기 설정
-         - 저장 번호
-         - 무기 코드
-         - 정신 레벨
-         - 플레이 타임
-         - 스킬 트리
-         */
-
-        saveCode = PlayerPrefs.GetInt("SaveCode");
-        playTime = PlayerPrefs.GetInt("Playtime" + saveCode);
-        soulLevel = PlayerPrefs.GetFloat("soulLevel" + saveCode);
-        weapon = PlayerPrefs.GetInt("Weapon" + saveCode);
-        
     }
 
     void FixedUpdate()

@@ -4,16 +4,38 @@ using UnityEngine;
 
 public class StatusData : MonoBehaviour
 {
-    public static StatusData instance;
+    //public static StatusData instance;
 
+    private int skillCode1, skillCode2;
+    private int saveCode, playTime, weapon, soulLevel;
     private int[] statusData;
     private int remainPoint;
     private int level;
 
     void Awake()
     {
-        StatusData.instance = this;
+        //StatusData.instance = this;
         DontDestroyOnLoad(this);
+        //초기화
+        statusData = new int[5] { 0, 5, 0, 0, 0 };
+        remainPoint = 10;
+        skillCode1 = 1;
+        skillCode2 = 2;
+
+        /*
+         PlayerPrefs 초기 설정
+         - 저장 번호
+         - 무기 코드
+         - 정신 레벨
+         - 플레이 타임
+         - 스킬 트리
+         - 화폐(스킬 북)
+         */
+
+        saveCode = PlayerPrefs.GetInt("SaveCode");
+        playTime = PlayerPrefs.GetInt("Playtime" + saveCode);
+        soulLevel = PlayerPrefs.GetInt("soulLevel" + saveCode);
+        weapon = PlayerPrefs.GetInt("Weapon" + saveCode);
     }
 
     public void UpdateStatus(int[] status)
@@ -25,5 +47,32 @@ public class StatusData : MonoBehaviour
     public int[] GetStatus()
     {
         return statusData;
+    }
+
+    public int GetRemainPoint()
+    {
+        return remainPoint;
+    }
+    public void SetRemainPoint(int remain)
+    {
+        remainPoint = remain;
+    }
+
+    public int GetLevel()
+    {
+        return level;
+    }
+    public void SetLevel(int lev)
+    {
+        level = lev;
+    }
+
+    public int GetSkillCode1()
+    {
+        return skillCode1;
+    }
+    public int GetSkillCode2()
+    {
+        return skillCode2;
     }
 }

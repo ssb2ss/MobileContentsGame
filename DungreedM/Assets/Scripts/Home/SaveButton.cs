@@ -40,9 +40,9 @@ public class SaveButton : MonoBehaviour
 
         PlayerPrefs.SetString("Name" + createCode, input);
         PlayerPrefs.SetInt("Weapon" + createCode, 1);
-        PlayerPrefs.SetFloat("SoulLevel" + createCode, 0);
+        PlayerPrefs.SetInt("SoulLevel" + createCode, 1);
         PlayerPrefs.SetInt("PlayTime" + createCode, 0);
-        PlayerPrefs.SetString("SkillTree" + createCode, "0");
+        PlayerPrefs.SetString("SkillTree" + createCode, "11000000000000000000000");
 
         SaveLoadUI.SetActive(true);
         CreatePlayerUI.SetActive(false);

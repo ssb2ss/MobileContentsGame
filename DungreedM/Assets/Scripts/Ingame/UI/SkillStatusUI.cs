@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class SkillStatusUI : MonoBehaviour
 {
+    public StatusData instance;
     //활성화, 비활성화 용
     public PlayerHPUI hpUI;
     public GameObject joystick, relatedSkill, playerInfoUI;
@@ -29,8 +30,10 @@ public class SkillStatusUI : MonoBehaviour
     public Text statusLevel, statusRemainPoint;
     public Text[] status, statusPlus;
 
-    //레벨, 남은 포인트(임시)
-    public int level, remainPoint;
+    public SkillManager skillMan;
+
+    //레벨, 남은 포인트
+    private int level, remainPoint;
 
     private int currentTab;
 
@@ -39,22 +42,36 @@ public class SkillStatusUI : MonoBehaviour
     //적용된 후 각 스텟
     private int[] currentStatus;
 
-    private void Start()
+    private void Awake()
     {
         nowStatusPlus = new int[5];
         currentStatus = new int[5];
 
         for (int i = 0; i < 5; i++)
         {
+            //현재 스탯 불러오기
             nowStatusPlus[i] = 0;
-
-            //임시 (현재 스텟 불러오기)
-            currentStatus[i] = 1;
+            // currentStatus[i] = StatusData.instance.GetStatus()[i];
+            currentStatus[i] = instance.GetStatus()[i];
         }
+        //현재 레벨, 남은 포인트 받아오기
     }
 
+    //활성화 되었을 때
     private void OnEnable()
     {
+        //시간 멈추기
+        Time.timeScale = 0;
+
+        //남은 포인트와 레벨 받아오기
+        //remainPoint = StatusData.instance.GetRemainPoint();
+        //level = StatusData.instance.GetLevel();
+        //currentStatus = StatusData.instance.GetStatus();
+        remainPoint = instance.GetRemainPoint();
+        level = instance.GetLevel();
+        currentStatus = instance.GetStatus();
+
+        //현재 탭 스텟으로 설정, UI끄기
         currentTab = 2;
         skillTabButton.sprite = releasedTabButton;
         statusTabButton.sprite = pressedTabButton;
@@ -64,6 +81,8 @@ public class SkillStatusUI : MonoBehaviour
         joystick.SetActive(false);
         relatedSkill.SetActive(false);
         playerInfoUI.SetActive(false);
+
+        UpdateStatus();
     }
 
     private void OnDisable()
@@ -73,22 +92,37 @@ public class SkillStatusUI : MonoBehaviour
             remainPoint += nowStatusPlus[i];
             nowStatusPlus[i] = 0;
         }
+        //UI활성화
+        joystick.SetActive(true);
+        relatedSkill.SetActive(true);
+        playerInfoUI.SetActive(true);
+        //시간 흐르게
+        Time.timeScale = 1;
+
+        //싱글톤에 올리기
+        //StatusData.instance.UpdateStatus(currentStatus);
+        //StatusData.instance.SetRemainPoint(remainPoint);
+        instance.UpdateStatus(currentStatus);
+        instance.SetRemainPoint(remainPoint);
+        hpUI.UpdateStatus();
     }
 
     public int[] GetStatus()
     {
+        //현재 스탯 반환
         return currentStatus;
     }
 
     public void OnBagClicked()
     {
+        //가방 클릭되었을 때
         gameObject.SetActive(true);
-        Time.timeScale = 0;
     }
 
     //상단 탭 클릭시
     public void OnTabClicked(string mode)
     {
+        //탭 변경
         if (mode == "SkillTab")
         {
             if (currentTab == 2)
@@ -109,11 +143,6 @@ public class SkillStatusUI : MonoBehaviour
     public void OnExitClicked()
     {
         gameObject.SetActive(false);
-
-        joystick.SetActive(true);
-        relatedSkill.SetActive(true);
-        playerInfoUI.SetActive(true);
-        Time.timeScale = 1;
     }
 
     /*
@@ -208,9 +237,7 @@ public class SkillStatusUI : MonoBehaviour
             nowStatusPlus[i] = 0;
         }
         UpdateStatus();
-        //싱글톤에 올리기
-        StatusData.instance.UpdateStatus(currentStatus);
-        hpUI.UpdateStatus();
+        
     }
 
     public void OnStatusCancelClicked()

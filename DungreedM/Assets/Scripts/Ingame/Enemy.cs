@@ -8,6 +8,8 @@ public class Enemy : MonoBehaviour
     public GameObject childEagle1, childEagle2, childEagle3, childEagle4;
     public int hp;
     public float moveSpeed;
+    public StatusData instance;
+    public Transform playerTransform;
 
     private Animator anim;
     private Vector3 dir;
@@ -21,14 +23,22 @@ public class Enemy : MonoBehaviour
     void Update()
     {
         if (hp <= 0)
-            OnDeath();
+            StartCoroutine(OnDeath());
 
-        if (GameManager.playerTransform.position.x < transform.position.x)
+        //if (GameManager.playerTransform.position.x < transform.position.x)
+        //    transform.localScale = new Vector3(1, 1, 1);
+        //else
+        //    transform.localScale = new Vector3(-1, 1, 1);
+        if (playerTransform.position.x < transform.position.x)
             transform.localScale = new Vector3(1, 1, 1);
         else
             transform.localScale = new Vector3(-1, 1, 1);
+    }
 
-
+    //플레이어 따라가기
+    private void Follow()
+    {
+        /*
         if (Vector3.Distance(GameManager.playerTransform.position, transform.position) <= Screen.height / 2)
         {
             dir = (GameManager.playerTransform.position - transform.position).normalized;
@@ -41,8 +51,20 @@ public class Enemy : MonoBehaviour
                 transform.Translate(dir * moveSpeed * Time.deltaTime);
             }
         }
+        */
+        if (Vector3.Distance(playerTransform.position, transform.position) <= Screen.height / 2)
+        {
+            dir = (playerTransform.position - transform.position).normalized;
+            if (transform.localScale.x == -1)
+            {
+                transform.Translate(dir * moveSpeed * Time.deltaTime);
+            }
+            else
+            {
+                transform.Translate(dir * moveSpeed * Time.deltaTime);
+            }
+        }
     }
-
 
     IEnumerator Eagle()
     {
@@ -63,16 +85,20 @@ public class Enemy : MonoBehaviour
         transform.localPosition = originPos;
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
+    void OnTriggerEnter2D(Collider2D other)
     {
         if (other.gameObject.CompareTag("Common_Attack"))
         {
-            hp -= StatusData.instance.GetStatus()[1];
+            //hp -= StatusData.instance.GetStatus()[1];
+            hp -= instance.GetStatus()[1];
         }
     }
 
-    private void OnDeath()
+    IEnumerator OnDeath()
     {
+        anim.SetBool("isDead", true);
+        yield return new WaitForSeconds(0.5f);
         gameObject.SetActive(false);
+        yield break;
     }
 }

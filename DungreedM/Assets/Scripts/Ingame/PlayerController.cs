@@ -112,6 +112,6 @@ public class PlayerController : MonoBehaviour
         attackEffect.SetActive(false);
         yield return new WaitForSeconds(cooltime - 0.4f);
         isAttackCool = false;
-        yield return 0;
+        yield break;
     }
 }
