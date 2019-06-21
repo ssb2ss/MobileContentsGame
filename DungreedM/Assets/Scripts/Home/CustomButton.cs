@@ -7,7 +7,6 @@ using UnityEngine.SceneManagement;
 public class CustomButton : MonoBehaviour
 {
     //public string mode;
-    public GameObject TitleUI;
     public GameObject SaveLoadUI;
 
     public GameObject Warning1;
@@ -21,15 +20,9 @@ public class CustomButton : MonoBehaviour
 
     public void OnButtonClicked(string mode)
     {
-        if (mode == "TitleStart")
-        {
-            TitleUI.SetActive(false);
-            SaveLoadUI.SetActive(true);
-        }
-        else if(mode == "Back")
+        if(mode == "Back")
         {
             SaveLoadUI.SetActive(false);
-            TitleUI.SetActive(true);
         }
         else if(mode == "GameStart")
         {
