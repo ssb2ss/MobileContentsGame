@@ -13,7 +13,7 @@ public class SkillStatusUI : MonoBehaviour
     //탭 버튼 스프라이트
     public Sprite pressedTabButton, releasedTabButton;
 
-    //스킬 탭 버튼 관련
+    //스킬 탭 버튼 관련    
     public GameObject skillUI;
     public Image skillTabButton;
 

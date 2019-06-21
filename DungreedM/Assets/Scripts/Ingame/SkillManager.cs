@@ -103,7 +103,8 @@ public class SkillManager : MonoBehaviour
     {
         PointerEventData data = _data as PointerEventData;
         UseSkill(2, data);
-        
+        skillRange1.SetActive(false);
+        skillRange2.SetActive(false);
     }
 
     IEnumerator CameraShake()
@@ -198,11 +199,13 @@ public class SkillManager : MonoBehaviour
         Vector3 vec = joy.GetJoyVec();
         rigid2.gravityScale = 0;
         rigid2.velocity = Vector2.zero;
-        rigid2.AddForce(vec * 0.1f, ForceMode2D.Impulse);
+        rigid2.AddForce(vec * 2f, ForceMode2D.Impulse);
         yield return new WaitForSeconds(0.5f);
         rigid2.velocity = Vector2.zero;
-        rigid2.AddForce(vec * 0.01f, ForceMode2D.Impulse);
+        rigid2.AddForce(vec * 0.1f, ForceMode2D.Impulse);
         rigid2.gravityScale = 1;
+
+        yield break;
     }
 
     private void ComboDeathFault()
