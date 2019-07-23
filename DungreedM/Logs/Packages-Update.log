@@ -44,3 +44,11 @@ The following packages were updated:
   com.unity.ide.visualstudio from version 1.0.10 to 1.0.11
 The following packages were removed:
   com.unity.package-manager-ui@2.2.0
+
+=== Tue Jul 23 14:01:10 2019
+
+Packages were changed.
+Update Mode: updateDependencies
+
+The following packages were updated:
+  com.unity.test-framework from version 1.0.13 to 1.0.16
