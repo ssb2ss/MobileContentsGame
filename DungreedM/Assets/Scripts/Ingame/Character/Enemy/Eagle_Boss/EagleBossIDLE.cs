@@ -2,12 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EagleFIRE : EagleFSMState
+public class EagleBossIDLE : EagleBossFSMState
 {
     public override void BeginState()
     {
         base.BeginState();
     }
-
-
 }

@@ -42,6 +42,7 @@ public class SaveButton : MonoBehaviour
         PlayerPrefs.SetInt("Weapon" + createCode, 1);
         PlayerPrefs.SetInt("SoulLevel" + createCode, 1);
         PlayerPrefs.SetInt("PlayTime" + createCode, 0);
+        PlayerPrefs.SetFloat("Exp" + createCode, 0);
         PlayerPrefs.SetString("SkillTree" + createCode, "11000000000000000000000");
 
         SaveLoadUI.SetActive(true);

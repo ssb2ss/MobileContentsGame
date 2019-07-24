@@ -12,8 +12,10 @@ public class EagleFSMManager : MonoBehaviour
 {
     public GameObject DamageUIPrefab, DamageCriticalUIPrefab, canvas;
     public EagleState currentState, startState;
-    private StatusData statusData;
-    private Animator anim;
+    public Transform playerTransform;
+    public float exp, moveSpeed;
+    public StatusData statusData;
+    public Animator anim;
     private int hp;
 
     Dictionary<EagleState, EagleFSMState> states = new Dictionary<EagleState, EagleFSMState>();
@@ -21,8 +23,12 @@ public class EagleFSMManager : MonoBehaviour
     void Awake()
     {
         hp = 200;
+        moveSpeed = 2f;
+        exp = Random.Range(30f, 70f);
         anim = GetComponentInChildren<Animator>();
         statusData = GameObject.FindGameObjectWithTag("StatusData").GetComponent<StatusData>();
+        playerTransform = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        canvas = GameObject.FindGameObjectWithTag("Canvas");
 
         states.Add(EagleState.CHASE, GetComponent<EagleCHASE>());
         states.Add(EagleState.FIRE, GetComponent<EagleFIRE>());
@@ -79,10 +85,5 @@ public class EagleFSMManager : MonoBehaviour
         else
             return (int)(Random.Range(48 + statusData.GetStatus()[1], 51 + statusData.GetStatus()[1]));
 
-    }
-
-    public void Dead()
-    {
-        Destroy(gameObject);
     }
 }

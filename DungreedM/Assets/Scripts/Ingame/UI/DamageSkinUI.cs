@@ -37,7 +37,7 @@ public class DamageSkinUI : MonoBehaviour
             color.a -= 0.01f;
             text.color = color;
             transform.position = cameraMain.WorldToScreenPoint(new Vector3(target.position.x, target.position.y + 1, target.position.z));
-            rect.transform.localPosition = new Vector2(rect.transform.position.x, rect.transform.position.y + 0.3f * i);
+            rect.transform.localPosition = new Vector2(rect.transform.localPosition.x, rect.transform.localPosition.y + 0.3f * i);
             yield return new WaitForSeconds(0.01f);
         }
         Destroy(gameObject);

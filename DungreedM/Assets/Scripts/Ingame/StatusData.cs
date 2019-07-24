@@ -11,6 +11,7 @@ public class StatusData : MonoBehaviour
     private int[] statusData;
     private int remainPoint;
     private int level;
+    private float exp;
 
     void Awake()
     {
@@ -36,6 +37,7 @@ public class StatusData : MonoBehaviour
         playTime = PlayerPrefs.GetInt("Playtime" + saveCode);
         soulLevel = PlayerPrefs.GetInt("soulLevel" + saveCode);
         weapon = PlayerPrefs.GetInt("Weapon" + saveCode);
+        exp = PlayerPrefs.GetFloat("Exp" + saveCode);
     }
 
     public void UpdateStatus(int[] status)
@@ -74,5 +76,10 @@ public class StatusData : MonoBehaviour
     public int GetSkillCode2()
     {
         return skillCode2;
+    }
+
+    public void PlusExp(float _exp)
+    {
+        exp += _exp;
     }
 }

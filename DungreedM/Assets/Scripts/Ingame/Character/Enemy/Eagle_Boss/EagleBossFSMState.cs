@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class EagleBossFSMState : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    protected EagleBossFSMManager manager;
+
+    public virtual void BeginState()
     {
-        
+
     }
 
-    // Update is called once per frame
-    void Update()
+    void Awake()
     {
-        
+        manager = GetComponent<EagleBossFSMManager>();
     }
 }
